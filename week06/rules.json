@@ -1,0 +1,21 @@
+{
+  "_comment": "6주차 시그니처 스캐너용 룰셋. hashes = 알려진 악성 SHA-256, strings = 의심 문자열 정규식.",
+  "hashes": {
+    "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f": {
+      "name": "EICAR-Test-File",
+      "severity": "high",
+      "note": "표준 안티멀웨어 테스트 파일 (실제 악성 아님)"
+    },
+    "3395856ce81f2b7382dee72602f798b642f14140": {
+      "name": "SAMPLE-Placeholder-1",
+      "severity": "medium",
+      "note": "강의 제공 샘플 A의 해시로 교체할 것"
+    }
+  },
+  "strings": [
+    { "id": "js-eval-atob", "pattern": "eval\\s*\\(\\s*atob", "severity": "high", "note": "난독화된 JS 페이로드" },
+    { "id": "ps-encoded", "pattern": "powershell(\\.exe)?\\s+-enc", "severity": "high", "note": "인코딩된 PowerShell 실행" },
+    { "id": "wget-pipe-sh", "pattern": "(curl|wget)[^\\n]+\\|\\s*(ba)?sh", "severity": "high", "note": "다운로드 후 즉시 실행" },
+    { "id": "base64-blob", "pattern": "[A-Za-z0-9+/]{200,}={0,2}", "severity": "low", "note": "대용량 Base64 블롭(오탐 주의)" }
+  ]
+}

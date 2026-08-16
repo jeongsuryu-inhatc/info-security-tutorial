@@ -1,0 +1,23 @@
+{
+  "name": "shopguard-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "정보보안개론 실습용 취약 쇼핑몰 (4·5·7·8주차 공용 스타터). 학습 목적. 배포 금지.",
+  "type": "commonjs",
+  "scripts": {
+    "seed": "node seed.js",
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "bcrypt": "^5.1.1",
+    "helmet": "^7.2.0",
+    "zod": "^3.25.76"
+  }
+}

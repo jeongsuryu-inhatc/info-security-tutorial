@@ -1,0 +1,2 @@
+{ "plugins": ["security"], "extends": ["plugin:security/recommended"],
+  "parserOptions": { "ecmaVersion": 2022, "sourceType": "script" } }

@@ -1,0 +1,14 @@
+# 9주차 커스텀 룰 스타터 — 아래 예시 1개는 동작하고, 나머지는 학생이 완성한다.
+# sid 는 1000000 이상(로컬 룰 대역)을 사용한다.
+
+# [예시-동작] 평문 /login POST 탐지 (3주차 pcap 에 매칭됨)
+alert http any any -> any any (msg:"ShopGuard plaintext login POST"; flow:to_server; http.method; content:"POST"; http.uri; content:"/login"; classtype:policy-violation; sid:1000001; rev:1;)
+
+# [TODO-1] SQLi 시도 탐지: URI 또는 http.request_body 에서 "' OR 1=1" / "UNION SELECT" 패턴
+# alert http any any -> any any (msg:"ShopGuard SQLi attempt"; ... sid:1000002; rev:1;)
+
+# [TODO-2] 포트 스캔 탐지: 짧은 시간 다수 SYN (detection_filter 사용)
+# alert tcp any any -> any any (msg:"ShopGuard portscan"; flags:S; detection_filter: track by_src, count 20, seconds 5; sid:1000003; rev:1;)
+
+# [TODO-3] 대량 로그인 실패: /login 반복 요청 임계 초과 (threshold 사용)
+# alert http any any -> any any (msg:"ShopGuard login bruteforce"; ... threshold: type threshold, track by_src, count 10, seconds 30; sid:1000004; rev:1;)

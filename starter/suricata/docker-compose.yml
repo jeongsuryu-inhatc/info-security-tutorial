@@ -1,0 +1,17 @@
+# starter/suricata/docker-compose.yml
+# 9주차 IDS 실습 — Suricata 오프라인 pcap 분석.
+# 3주차에서 만든 login-plaintext.pcapng 를 ./pcaps/ 에 복사한 뒤 사용한다.
+#
+# 실행(대기): docker compose -f starter/suricata/docker-compose.yml up -d
+# pcap 분석:  docker compose -f starter/suricata/docker-compose.yml \
+#              run --rm suricata -r /pcaps/login-plaintext.pcapng -l /var/log/suricata -S /rules/local.rules
+services:
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: sg-suricata
+    entrypoint: ["suricata"]
+    command: ["-r", "/pcaps/login-plaintext.pcapng", "-l", "/var/log/suricata", "-S", "/rules/local.rules", "-k", "none"]
+    volumes:
+      - ./rules:/rules
+      - ./pcaps:/pcaps
+      - ./logs:/var/log/suricata

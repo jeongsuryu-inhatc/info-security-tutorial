@@ -1,0 +1,25 @@
+timestamp,source,event
+2026-08-14T02:50:03+09:00,auth,sshd[1201]: Failed password for root from 198.51.100.14 port 44122 ssh2
+2026-08-14T02:55:01+09:00,web,198.51.100.14 GET /login HTTP/1.1 [200]
+2026-08-14T02:55:20+09:00,web,198.51.100.14 POST /login HTTP/1.1 [401]
+2026-08-14T03:10:55+09:00,auth,sshd[1330]: Failed password for invalid user admin from 203.0.113.66 port 51002 ssh2
+2026-08-14T03:11:01+09:00,auth,sshd[1331]: Failed password for invalid user admin from 203.0.113.66 port 51004 ssh2
+2026-08-14T03:11:02+09:00,web,203.0.113.66 GET /login HTTP/1.1 [200]
+2026-08-14T03:11:05+09:00,web,203.0.113.66 POST /login HTTP/1.1 [401]
+2026-08-14T03:11:07+09:00,web,203.0.113.66 POST /login HTTP/1.1 [401]
+2026-08-14T03:11:12+09:00,web,203.0.113.66 POST /login HTTP/1.1 [401]
+2026-08-14T03:13:44+09:00,auth,shopguard-app[900]: LOGIN SUCCESS user=admin@shop.com src=203.0.113.66 method=web note="password check bypassed"
+2026-08-14T03:13:44+09:00,db,app SELECT id email role FROM users WHERE email='admin@shop.com'--' AND password='x'
+2026-08-14T03:13:44+09:00,web,203.0.113.66 POST /login HTTP/1.1 [200]
+2026-08-14T03:14:01+09:00,db,app SELECT * FROM orders
+2026-08-14T03:14:01+09:00,web,203.0.113.66 GET /admin/orders HTTP/1.1 [200]
+2026-08-14T03:14:02+09:00,auth,shopguard-app[900]: SESSION admin role=admin src=203.0.113.66
+2026-08-14T03:15:30+09:00,web,203.0.113.66 POST /admin/orders/cancel-all HTTP/1.1 [200]
+2026-08-14T03:15:31+09:00,auth,shopguard-app[900]: ADMIN ACTION cancel-all-orders by=admin@shop.com src=203.0.113.66
+2026-08-14T03:15:31+09:00,db,app UPDATE orders SET total=0  product='CANCELLED'   -- WHERE 절 없음: 전체 주문 조작
+2026-08-14T03:16:10+09:00,web,203.0.113.66 GET /admin/export?table=users HTTP/1.1 [200]
+2026-08-14T03:16:11+09:00,auth,shopguard-app[900]: ADMIN ACTION export table=users by=admin@shop.com src=203.0.113.66
+2026-08-14T03:16:11+09:00,db,app SELECT email password phone FROM users
+2026-08-14T09:02:11+09:00,web,198.51.100.22 GET /login HTTP/1.1 [200]
+2026-08-14T09:02:12+09:00,auth,shopguard-app[900]: LOGIN SUCCESS user=manager@shop.com src=198.51.100.22 method=web
+2026-08-14T09:05:22+09:00,db,app SELECT * FROM products WHERE id=2

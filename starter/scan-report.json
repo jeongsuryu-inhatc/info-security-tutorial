@@ -1,0 +1,30 @@
+[
+  {
+    "file": "starter/malware-lab/samples/sample_A",
+    "type": "string",
+    "rule": "wget-pipe-sh",
+    "severity": "high",
+    "detail": "다운로드 후 즉시 실행"
+  },
+  {
+    "file": "starter/malware-lab/samples/sample_B",
+    "type": "string",
+    "rule": "js-eval-atob",
+    "severity": "high",
+    "detail": "난독화된 JS 페이로드"
+  },
+  {
+    "file": "starter/malware-lab/samples/sample_C",
+    "type": "string",
+    "rule": "ps-encoded",
+    "severity": "high",
+    "detail": "인코딩된 PowerShell 실행"
+  },
+  {
+    "file": "starter/malware-lab/samples/sample_B",
+    "type": "string",
+    "rule": "base64-blob",
+    "severity": "low",
+    "detail": "대용량 Base64 블롭(오탐 주의)"
+  }
+]

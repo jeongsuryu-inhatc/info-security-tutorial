@@ -1,0 +1,97 @@
+<!--
+  ============================================================================
+  week12/edu-phish.html — 과제 1: 교육용 피싱 예시 (발송·배포 금지)
+  ============================================================================
+  ⚠️ 이 파일은 12주차 '사회공학' 수업의 **교육용 산출물**이다.
+     - 사칭 대상은 이 강의의 **가상 서비스 'ShopGuard'** 이며 실제 조직이 아니다.
+     - 실제로 자격증명을 수집하지 않는다(폼은 제출되지 않도록 막아둠).
+     - 절대 실제 수신자에게 발송하거나 외부에 배포하지 않는다.
+  목적: "왜 속기 쉬운가"를 스스로 설계해 보고, 그 옆에 "어떤 단서로 탐지하는가"를
+       주석으로 나란히 남겨 방어 감각을 기른다.
+
+  ── 사용한 조작 기법 태깅 ──────────────────────────────────────────────
+   [권위]   ShopGuard '보안팀' 사칭 (신뢰 유도)
+   [긴급성] "24시간 내 미인증 시 계정 정지" (숙고 차단)
+   [희소성] "본인 확인 대상자로 한정" (특별함 부여)
+   [신뢰]   로고/서명/브랜드 색으로 진짜처럼 보이게
+
+  ── 그런데 이렇게 탐지한다 (방어 단서) ─────────────────────────────────
+   [D1] 발신 도메인 불일치: From 표시는 shopguard.example 이지만
+        실제 발신/회신은 shopguard-secure-verify.top (유사도메인)
+   [D2] 링크 위장: 표시 텍스트는 https://shopguard.example 이지만
+        실제 href 는 http://shopguard.example.verify-account.top (하위도메인 트릭)
+   [D3] 심리적 압박(긴급/위협)은 정상 서비스가 잘 쓰지 않는 신호
+   [D4] 자격증명/결제정보를 메일 링크로 요구하는 것 자체가 위험 신호
+   [D5] http(평문)·오탈자·과장된 문구
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>[교육용 예시] ShopGuard 계정 인증 안내</title>
+  <style>
+    body { font-family: -apple-system, "맑은 고딕", sans-serif; background:#f2f4f7; margin:0; }
+    .edu-banner { background:#b91c1c; color:#fff; text-align:center; padding:8px; font-weight:700; }
+    .mail { max-width:560px; margin:24px auto; background:#fff; border-radius:10px; overflow:hidden;
+            box-shadow:0 2px 10px rgba(0,0,0,.08); }
+    .brand { background:#ea580c; color:#fff; padding:18px 24px; font-size:20px; font-weight:800; }
+    .body { padding:24px; color:#1f2937; line-height:1.6; }
+    .warn { color:#b91c1c; font-weight:700; }         <!-- [긴급성] 시각적 위협 강조 -->
+    .cta { display:inline-block; margin:18px 0; padding:12px 22px; background:#ea580c;
+           color:#fff; text-decoration:none; border-radius:8px; font-weight:700; }
+    .foot { padding:16px 24px; color:#6b7280; font-size:12px; border-top:1px solid #eee; }
+    label { display:block; margin:10px 0 4px; font-size:13px; }
+    input { width:100%; padding:10px; border:1px solid #d1d5db; border-radius:6px; box-sizing:border-box; }
+  </style>
+</head>
+<body>
+  <!-- 실제 발송본에는 없을 교육용 배너(항상 눈에 띄게 유지) -->
+  <div class="edu-banner">⚠️ 교육용 예시입니다 — 실제 메일 아님 / 발송·배포 금지</div>
+
+  <div class="mail">
+    <!-- [신뢰] 브랜드 로고/색으로 진짜처럼 보이게 -->
+    <div class="brand">🛡️ ShopGuard 보안센터</div>
+
+    <div class="body">
+      <!-- [권위] '보안팀' 명의로 신뢰 유도 -->
+      <p><b>ShopGuard 보안팀</b>에서 알려드립니다.</p>
+
+      <!-- [긴급성] 시간 압박 + 위협으로 숙고를 차단 -->
+      <p class="warn">비정상 로그인 시도가 감지되어 계정이 일시 제한되었습니다.
+         24시간 이내에 본인 인증을 완료하지 않으면 계정이 <u>영구 정지</u>됩니다.</p>
+
+      <!-- [희소성] 대상 한정으로 특별함 부여 -->
+      <p>귀하는 <b>본인 확인 대상자</b>로 선정되었습니다. 아래 버튼으로 즉시 인증하세요.</p>
+
+      <!--
+        [D2] 링크 위장의 핵심:
+             표시 텍스트(https://shopguard.example)와 실제 href 호스트
+             (shopguard.example.verify-account.top)가 다르다 → 유사/하위도메인 트릭.
+             또한 http(평문)라는 점도 [D5] 단서.
+      -->
+      <a class="cta" href="http://shopguard.example.verify-account.top/login">
+        https://shopguard.example 에서 계정 인증하기 ▶
+      </a>
+
+      <!--
+        [D4] 자격증명을 메일 내부 폼으로 직접 요구 → 그 자체가 위험 신호.
+             교육용이므로 폼은 아무 데도 전송되지 않도록 막아둔다(action 없음 + onsubmit 차단).
+      -->
+      <form onsubmit="alert('교육용 예시입니다. 실제로 전송되지 않습니다.'); return false;">
+        <label>이메일</label>
+        <input type="email" placeholder="you@shopguard.example" autocomplete="off">
+        <label>비밀번호</label>
+        <input type="password" placeholder="비밀번호" autocomplete="off">
+        <button class="cta" style="border:0; cursor:pointer;" type="submit">인증 완료</button>
+      </form>
+    </div>
+
+    <!-- [신뢰] 그럴듯한 서명/푸터 -->
+    <div class="foot">
+      본 메일은 ShopGuard 계정 보호를 위해 발송되었습니다. · ShopGuard 보안팀<br>
+      (교육용 예시 — 실제 회사·도메인과 무관)
+    </div>
+  </div>
+</body>
+</html>

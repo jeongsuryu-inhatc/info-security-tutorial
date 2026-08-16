@@ -1,0 +1,22 @@
+Return-Path: <bounce@mail-delivery-notice.top>
+Received: from unknown (HELO mail-delivery-notice.top) (185.220.101.4)
+	by mx.univ-mail.ac.kr with SMTP; Fri, 14 Aug 2026 03:02:10 +0900
+Authentication-Results: mx.univ-mail.ac.kr;
+	spf=fail (sender IP is 185.220.101.4) smtp.mailfrom=mail-delivery-notice.top;
+	dkim=none;
+	dmarc=fail (p=none) header.from=korea-post.co.kr
+From: "우체국 택배" <notice@korea-post.co.kr>
+Reply-To: <claim@mail-delivery-notice.top>
+To: <student@univ-mail.ac.kr>
+Subject: [긴급] 배송 실패 - 24시간 내 미확인 시 반송됩니다
+Date: Fri, 14 Aug 2026 03:02:08 +0900
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+
+<html><body>
+<p>고객님의 택배가 <b>주소 오류</b>로 배송에 실패했습니다.</p>
+<p><b>24시간 이내</b> 아래에서 주소를 재확인하지 않으면 자동 반송됩니다.</p>
+<p><a href="http://korea-post.co.kr.delivery-check.top/track?id=8842">
+   ▶ 배송 정보 확인하기 (korea-post.co.kr)</a></p>
+<p>감사합니다. 우체국 고객센터</p>
+</body></html>

@@ -1,0 +1,21 @@
+Return-Path: <it-support@secure-webmail-reset.com>
+Received: from vps-4471.hosting-cheap.net (203.0.113.201)
+	by mx.univ-mail.ac.kr with ESMTP; Fri, 14 Aug 2026 08:41:55 +0900
+Authentication-Results: mx.univ-mail.ac.kr;
+	spf=softfail smtp.mailfrom=secure-webmail-reset.com;
+	dkim=fail reason="signature verification failed";
+	dmarc=fail (p=quarantine) header.from=univ-mail.ac.kr
+From: "IT 보안팀 관리자" <admin@univ-mail.ac.kr>
+To: <student@univ-mail.ac.kr>
+Subject: 메일함 용량 초과 - 계정 정지 예정
+Date: Fri, 14 Aug 2026 08:41:50 +0900
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+
+<html><body>
+<p>귀하의 메일함이 <b>용량 한도(2GB)</b>를 초과했습니다.</p>
+<p>보안 정책에 따라 <b>오늘 자정까지</b> 인증하지 않으면 계정이 정지됩니다.</p>
+<p>아래 학교 포털에 로그인하여 용량을 확장하십시오:</p>
+<p><a href="https://univ--mail.ac.kr-reset.com/login">https://portal.univ-mail.ac.kr</a></p>
+<p>정보통신처 IT 보안팀 드림</p>
+</body></html>

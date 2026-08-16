@@ -1,0 +1,108 @@
+Unable to find image 'semgrep/semgrep:latest' locally
+latest: Pulling from semgrep/semgrep
+b99a4a97b185: Pulling fs layer
+04ad62ac3cfc: Pulling fs layer
+9705a0e6141c: Pulling fs layer
+dfac586a76c3: Pulling fs layer
+bd9ddc54bea9: Pulling fs layer
+4f5f23011c36: Pulling fs layer
+d03f619051a8: Pulling fs layer
+8e6007cdabcf: Pulling fs layer
+aed85b97781a: Pulling fs layer
+42bad1cc6051: Pulling fs layer
+fc93e0d4b30a: Pulling fs layer
+7fc22c96d532: Pulling fs layer
+b99a4a97b185: Download complete
+d03f619051a8: Download complete
+bd9ddc54bea9: Download complete
+4f5f23011c36: Download complete
+dfac586a76c3: Download complete
+aed85b97781a: Download complete
+04ad62ac3cfc: Download complete
+8e6007cdabcf: Download complete
+9705a0e6141c: Download complete
+7fc22c96d532: Download complete
+7bf857add7f2: Download complete
+42bad1cc6051: Download complete
+bd9ddc54bea9: Pull complete
+8e6007cdabcf: Pull complete
+42bad1cc6051: Pull complete
+7fc22c96d532: Pull complete
+fc93e0d4b30a: Download complete
+fc93e0d4b30a: Pull complete
+04ad62ac3cfc: Pull complete
+b99a4a97b185: Pull complete
+d03f619051a8: Pull complete
+4f5f23011c36: Pull complete
+dfac586a76c3: Pull complete
+aed85b97781a: Pull complete
+b99a4a97b185: Pull complete
+d03f619051a8: Pull complete
+4f5f23011c36: Pull complete
+dfac586a76c3: Pull complete
+aed85b97781a: Pull complete
+9705a0e6141c: Pull complete
+Digest: sha256:65dcd4408adda7c183a6b4550cb1e9b19f7f627a6fbb7e0559bd466bedc44d7b
+Status: Downloaded newer image for semgrep/semgrep:latest
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 12 files tracked by git with 1074 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      47      12          Community    1074                                                                
+  js              153       6                                                                                           
+  json              4       2                                                                                           
+                                                                                                                        
+                   
+                   
+┌─────────────────┐
+│ 3 Code Findings │
+└─────────────────┘
+                                        
+    /src/starter/shopguard-app/server.js
+     ❱ javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage
+          ❰❰ Blocking ❱❱
+          A CSRF middleware was not detected in your express application. Ensure you are either using one such
+          as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your    
+          routes with a token or cookies.                                                                     
+          Details: https://sg.run/BxzR                                                                        
+                                                                                                              
+           12┆ const app = express();
+                                       
+    /src/starter/shopguard-app/utils.js
+    ❯❱ javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
+          ❰❰ Blocking ❱❱
+          Detected possible user input going into a `path.join` or `path.resolve` function. This could   
+          possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files
+          stored in the file system. Instead, be sure to sanitize or validate user input first.          
+          Details: https://sg.run/OPqk                                                                   
+                                                                                                         
+           11┆ return fs.readFileSync(path.join(__dirname, 'uploads', name), 'utf8');
+   
+   ❯❯❱ javascript.lang.security.detect-child-process.detect-child-process
+          ❰❰ Blocking ❱❱
+          Detected calls to child_process from a function argument `file`. This could lead to a command 
+          injection if the input is user controllable. Try to avoid calls to child_process, and if it is
+          needed ensure user input is correctly sanitized or sandboxed.                                 
+          Details: https://sg.run/l2lo                                                                  
+                                                                                                        
+           17┆ return execSync(`echo convert ${file} thumb.png`).toString();
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 3 (3 blocking)
+ • Rules run: 203
+ • Targets scanned: 12
+ • Parsed lines: ~100.0%
+ • Scan skipped: 
+   ◦ Files matching .semgrepignore patterns: 151
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 203 rules on 12 files: 3 findings.

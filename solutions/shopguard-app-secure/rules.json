@@ -1,0 +1,12 @@
+{
+  "hashes": {
+    "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f": {
+      "name": "EICAR-Test-File", "severity": "high"
+    }
+  },
+  "strings": [
+    { "id": "js-eval-atob", "pattern": "eval\\s*\\(\\s*atob", "severity": "high" },
+    { "id": "ps-encoded", "pattern": "powershell(\\.exe)?\\s+-enc", "severity": "high" },
+    { "id": "wget-pipe-sh", "pattern": "(curl|wget)[^\\n]+\\|\\s*(ba)?sh", "severity": "high" }
+  ]
+}

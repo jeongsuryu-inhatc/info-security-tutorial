@@ -1,0 +1,12 @@
+asset_id,asset_name,threat,vulnerability,source_week,likelihood_1to5,impact_1to5,risk_score,treatment,control
+A01,회원 DB,인증 우회,SQL Injection(auth.js),4,4,5,,완화,Prepared Statement(4주)
+A02,결제 모듈,가격 조작,클라이언트 total 신뢰,8,4,4,,완화,서버 재계산(8주)
+A02,결제 모듈,권한 우회,IDOR(주문 조회),8,3,4,,완화,소유자 접근통제(8주)
+A01,회원 DB,자격증명 유출,평문 비밀번호 저장,7,3,5,,완화,bcrypt 해시(7주)
+A06,인증/세션 서비스,전송구간 도청,평문 HTTP,3/8,3,4,,완화,HTTPS+HSTS(8주)
+A05,상품 카탈로그 DB,데이터 위변조,입력검증 부재,5,3,3,,완화,zod 스키마 검증(5주)
+A07,접근/에러 로그,로그 위변조,권한/무결성 부재,11,2,4,,완화,권한분리+무결성(11주)
+A03,IoT 도어 기기,무인증 제어,MQTT 익명 허용,10,3,5,,완화,브로커 인증/ACL(10주)
+A04,민감정보(PII),정보 노출,전화번호 평문 저장,7,3,4,,완화,AES-256-GCM(7주)
+,,,,,,,,,
+# risk_score = likelihood × impact (1~5 척도). treatment = 수용/완화/전가/회피.

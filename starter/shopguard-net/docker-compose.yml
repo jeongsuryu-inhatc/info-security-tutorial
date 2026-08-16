@@ -1,0 +1,20 @@
+# starter/shopguard-net/docker-compose.yml
+# 3주차 네트워크보안 실습 — 평문 HTTP 로그인 서버 + 스캔 대상.
+# 실행: docker compose -f starter/shopguard-net/docker-compose.yml up
+services:
+  shopguard-web:
+    image: node:20-slim
+    container_name: sg-net-web
+    working_dir: /app
+    volumes:
+      - ./web:/app
+    command: node server.js
+    ports:
+      - "8080:80"      # 평문 HTTP (Wireshark 캡처 대상)
+      - "2222:22"      # 스캔 실습용 (실제 서비스는 없음, nmap 표적)
+    networks:
+      - sgnet
+
+networks:
+  sgnet:
+    driver: bridge

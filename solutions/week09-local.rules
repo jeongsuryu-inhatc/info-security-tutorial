@@ -1,0 +1,20 @@
+# 9주차 모범답안 — 커스텀 룰 3종 (조교용)
+# sid 는 로컬 대역(1000000+). 실제 pcap/트래픽으로 검증 후 배포.
+
+# 예시(제공): 평문 로그인 POST
+alert http any any -> any any (msg:"ShopGuard plaintext login POST"; flow:to_server; http.method; content:"POST"; http.uri; content:"/login"; classtype:policy-violation; sid:1000001; rev:1;)
+
+# TODO-1 정답: SQLi 시도 (URI 또는 요청 본문에서 대표 패턴, nocase)
+alert http any any -> any any (msg:"ShopGuard SQLi attempt"; flow:to_server; http.request_body; content:"union"; nocase; content:"select"; nocase; distance:0; classtype:web-application-attack; sid:1000002; rev:1;)
+alert http any any -> any any (msg:"ShopGuard SQLi tautology"; flow:to_server; pcre:"/(\'|%27)\s*or\s*1=1/i"; classtype:web-application-attack; sid:1000005; rev:1;)
+
+# TODO-2 정답: 포트 스캔 (5초에 20개 이상 SYN, 출발지 기준)
+alert tcp any any -> any any (msg:"ShopGuard portscan (SYN flood to many ports)"; flags:S,12; detection_filter: track by_src, count 20, seconds 5; classtype:attempted-recon; sid:1000003; rev:1;)
+
+# TODO-3 정답: 로그인 브루트포스 (30초에 /login 10회 초과)
+alert http any any -> any any (msg:"ShopGuard login bruteforce"; flow:to_server; http.method; content:"POST"; http.uri; content:"/login"; threshold: type threshold, track by_src, count 10, seconds 30; classtype:attempted-user; sid:1000004; rev:1;)
+
+# 오탐 튜닝 메모:
+#  - 1000002 는 정상 검색어에 'select' 포함 시 오탐 가능 → http.uri 를 /login,/search 로 한정하거나
+#    content 를 "union select" 근접(distance:0)으로 좁힌다.
+#  - 1000004 는 정상 사용자의 반복 로그인도 잡을 수 있어 count/seconds 를 환경에 맞게 조정한다.

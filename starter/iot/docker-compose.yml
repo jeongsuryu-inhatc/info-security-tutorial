@@ -1,0 +1,26 @@
+# starter/iot/docker-compose.yml
+# 10주차 IoT 실습 — 인증 없는 MQTT 브로커 + 취약 기기 시뮬레이터.
+# 실행: docker compose -f starter/iot/docker-compose.yml up
+services:
+  broker:
+    image: eclipse-mosquitto:2
+    container_name: sg-mqtt
+    ports:
+      - "1883:1883"          # ⚠️ 인증 없이 열린 MQTT (도청·발행 실습 대상)
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks: [iot]
+
+  device:
+    image: node:20-slim
+    container_name: sg-iot-device
+    working_dir: /app
+    volumes:
+      - ./device:/app
+    command: sh -c "npm install mqtt --no-audit --no-fund && node sensor.js"
+    depends_on: [broker]
+    networks: [iot]
+
+networks:
+  iot:
+    driver: bridge

