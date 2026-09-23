@@ -135,3 +135,126 @@ docker exec  → 실행 중인 컨테이너에서 명령 실행
 
 # 재접속시 명령어 
   docker start -ai security-dev
+
+
+--- 
+
+# Dockerfile
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y \
+        vim \
+        nano \
+        git \
+        curl \
+        wget \
+        net-tools \
+        iproute2 \
+        iputils-ping \
+        procps \
+        tree \
+        unzip \
+        zip \
+        ca-certificates \
+        gnupg \
+        lsb-release \
+        openssh-client \
+        build-essential && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /projects
+
+CMD ["/bin/bash"]
+
+# 이미지 Build - Dockerfile이 있는 현재 디렉터리에서:
+
+docker build -t ubuntu-dev:24.04 
+
+# 확인 
+docker images
+
+# 현재 폴더를 /projects로 마운트하여 실행
+cd C:\projects\info-security-tutorial
+docker run -it   --name ubuntu-dev   -v "$(pwd):/projects" ubuntu-dev:22.04
+
+## 컨테이너에 들어가면 Dockerfile의 WORKDIR 때문에 바로:
+root@xxxx:/projects#
+pwd
+ls -al
+
+## 결과 
+/projects
+
+Dockerfile
+starter/
+src/
+README.md
+...
+
+
+## 종료 
+docker ps -a
+
+## 중요하게, 다시 사용할 때는 docker run을 하지 않습니다.
+    docker start -ai ubuntu-dev
+  또는 
+    docker start ubuntu-dev
+    docker exec -it ubuntu-dev bash
+
+
+
+# 8. Docker CLI까지 컨테이너에서 사용하려면
+
+앞서 발생했던:
+
+failed to connect to the docker API at
+unix:///var/run/docker.sock
+
+문제까지 해결하려면 Docker Desktop의 socket도 연결해야 합니다.
+
+Linux/WSL 환경에서는 예를 들어:
+
+docker run -it \
+  --name ubuntu-dev \
+  -v "$(pwd):/projects" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  ubuntu-dev:24.04
+
+단, 이미지 내부에 Docker CLI도 있어야 합니다.
+
+Dockerfile에 Docker CLI 설치까지 포함시키려면 Ubuntu 패키지 기준으로 다음을 추가할 수 있습니다.
+
+RUN apt-get update && \
+    apt-get install -y docker.io && \
+    rm -rf /var/lib/apt/lists/*
+
+그러면 구조가:
+
+Docker Desktop
+      │
+      │ Docker Engine
+      │
+      ├──── /var/run/docker.sock
+      │              ↑
+      │              │
+      │        ubuntu-dev Container
+      │        ├── Docker CLI
+      │        ├── git
+      │        ├── vim
+      │        ├── curl
+      │        └── /projects
+      │              ↑
+      │              │ Bind Mount
+      │              │
+      └──── Host 프로젝트 폴더
+
+가 됩니다.
+
+다만 docker.sock을 컨테이너에 노출하면 그 컨테이너는 사실상 호스트 Docker daemon에 매우 강한 권한을 갖게 됩니다. 
+신뢰할 수 있는 로컬 개발/교육 컨테이너에서만 사용하는 것이 좋습니다.
+
+  
