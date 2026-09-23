@@ -99,3 +99,39 @@ grading/run-all.sh /path/to/학생/shopguard-app
 
 Node.js 20 LTS · Docker · Git · VS Code · VirtualBox(3·9주) · Wireshark(3주) ·
 Python 3.11+torch(10주) · mkcert(8주) · nmap/mosquitto-clients
+
+## 윈도우에 Docker Desktop 으로 테스트 환경 설정하기  
+# 윈도우용 docker desktop 설치 
+
+# Windows PowerShell 
+  git clone https://github.com/jeongsuryu-inhatc/info-security-tutorial.git 
+  cd /projects/info-security-tutorial
+  docker run -it --name security-dev -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd):/projects/info-security-tutorial" ubuntu:22.04 bash
+
+
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+
+# sudo systemctl status docker
+# sudo docker run hello-world
+
+
+# 컨테이너 내부에서 
+  cd /projects/info-security-tutorial
+  docker build   -t shopguard-web   -f starter/shopguard-web.Dockerfile   .
+
+
+docker run   → 새로운 컨테이너 생성 + 실행
+docker start → 기존 컨테이너 다시 실행
+docker exec  → 실행 중인 컨테이너에서 명령 실행
+
+# 재접속시 명령어 
+  docker start -ai security-dev
